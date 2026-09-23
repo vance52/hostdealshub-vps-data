@@ -38,7 +38,12 @@ def main() -> None:
     providers = payload.get("providers", [])
 
     with CSV_OUTPUT.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=CSV_FIELDS, extrasaction="ignore")
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=CSV_FIELDS,
+            extrasaction="ignore",
+            lineterminator="\n",
+        )
         writer.writeheader()
         for offer in offers:
             writer.writerow({field: offer.get(field, "") for field in CSV_FIELDS})
